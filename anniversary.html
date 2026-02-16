@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Anniversary ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+overflow:hidden;
+background:linear-gradient(-45deg,#a1c4fd,#c2e9fb,#fbc2eb,#a6c1ee);
+background-size:400% 400%;
+animation:gradientMove 15s ease infinite;
+color:white;
+text-align:center;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.section{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transition:opacity 1s ease;
+}
+
+.hidden{
+opacity:0;
+pointer-events:none;
+}
+
+/* GAME */
+
+#gameArea{
+position:relative;
+width:100%;
+height:60vh;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+font-size:65px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(90vh);}
+}
+
+#basket{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:75px;
+}
+
+#messageBox{
+margin-top:15px;
+font-size:22px;
+height:40px;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4e8a;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* WHEEL */
+
+#wheelContainer{
+position:relative;
+width:350px;
+height:350px;
+}
+
+#wheel{
+width:100%;
+height:100%;
+border-radius:50%;
+border:8px solid white;
+transition:transform 4s cubic-bezier(.17,.67,.83,.67);
+}
+
+#pointer{
+position:absolute;
+top:-20px;
+left:50%;
+transform:translateX(-50%);
+font-size:40px;
+}
+
+#result{
+margin-top:20px;
+font-size:24px;
+font-weight:600;
+}
+
+/* LETTER */
+
+#letterText{
+font-family:'Great Vibes',cursive;
+font-size:32px;
+white-space:pre-line;
+width:70%;
+line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SECTION 1 GAME -->
+<div id="gameSection" class="section">
+<h1>Catch My Love ❤️</h1>
+<div id="gameArea">
+<div id="basket">🧺</div>
+</div>
+<div id="messageBox"></div>
+<button id="nextGiftBtn" style="display:none;" onclick="goToWheel()">Open Your Next Gift 🎁</button>
+</div>
+
+<!-- SECTION 2 WHEEL -->
+<div id="wheelSection" class="section hidden">
+<h1>Spin Your Surprise 💍</h1>
+<div id="wheelContainer">
+<div id="pointer">▼</div>
+<canvas id="wheel" width="350" height="350"></canvas>
+</div>
+<button onclick="spinWheel()">Spin</button>
+<div id="result"></div>
+<button id="letterBtn" style="display:none;" onclick="goToLetter()">Read My Love Letter 💌</button>
+</div>
+
+<!-- SECTION 3 LETTER -->
+<div id="letterSection" class="section hidden">
+<h1>For You, My Love 💕</h1>
+<div id="letterText"></div>
+</div>
+
+<script>
+
+/* ---------------- HEART GAME ---------------- */
+
+let basket=document.getElementById("basket");
+let gameArea=document.getElementById("gameArea");
+let messageBox=document.getElementById("messageBox");
+let nextGiftBtn=document.getElementById("nextGiftBtn");
+
+let count=0;
+
+const messages=[
+"You are my safe place ❤️",
+"You are my forever 🌈",
+"I choose you everyday 💕",
+"You are my peace 🌧",
+"My heart is yours 💓",
+"You complete me ✨",
+"Always & Forever 💍",
+"You are my home 🏠",
+"I love you endlessly 💖",
+"Happy Anniversary Jaanu ❤️"
+];
+
+function createHeart(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*90+"vw";
+heart.style.animationDuration=(3+Math.random()*2)+"s";
+gameArea.appendChild(heart);
+
+let fall=setInterval(()=>{
+let h=heart.getBoundingClientRect();
+let b=basket.getBoundingClientRect();
+
+if(h.bottom>=b.top && h.left<b.right && h.right>b.left){
+heart.remove();
+clearInterval(fall);
+
+if(count<10){
+messageBox.innerHTML=messages[count];
+count++;
+}
+
+if(count==10){
+nextGiftBtn.style.display="inline-block";
+}
+}
+
+if(h.top>window.innerHeight){
+heart.remove();
+clearInterval(fall);
+}
+
+},50);
+}
+
+setInterval(createHeart,1000);
+
+document.addEventListener("mousemove",e=>{
+basket.style.left=e.clientX+"px";
+});
+document.addEventListener("touchmove",e=>{
+basket.style.left=e.touches[0].clientX+"px";
+});
+
+/* ---------------- TRANSITION ---------------- */
+
+function goToWheel(){
+document.getElementById("gameSection").classList.add("hidden");
+document.getElementById("wheelSection").classList.remove("hidden");
+}
+
+/* ---------------- WHEEL ---------------- */
+
+const options=[
+"Long Call Night 📞",
+"Surprise Date 🎁",
+"Love Letter 💌",
+"One Free Hug 🤍",
+"T-shirt & Lower 👕",
+"Couple Rest 🌙"
+];
+
+const canvas=document.getElementById("wheel");
+const ctx=canvas.getContext("2d");
+const size=350;
+const arc=2*Math.PI/options.length;
+
+function drawWheel(){
+for(let i=0;i<options.length;i++){
+ctx.beginPath();
+ctx.fillStyle=i%2==0?"#ff9a9e":"#fad0c4";
+ctx.moveTo(size/2,size/2);
+ctx.arc(size/2,size/2,size/2,i*arc,(i+1)*arc);
+ctx.fill();
+
+ctx.save();
+ctx.translate(size/2,size/2);
+ctx.rotate(i*arc+arc/2);
+ctx.fillStyle="white";
+ctx.font="14px Poppins";
+ctx.fillText(options[i],40,5);
+ctx.restore();
+}
+}
+drawWheel();
+
+function spinWheel(){
+let spinAngle=Math.floor(Math.random()*360+1440);
+canvas.style.transform="rotate("+spinAngle+"deg)";
+
+setTimeout(()=>{
+let deg=spinAngle%360;
+let index=Math.floor((360-deg)/(360/options.length));
+let result=options[index];
+document.getElementById("result").innerHTML="Your Surprise: "+result;
+document.getElementById("letterBtn").style.display="inline-block";
+},4000);
+}
+
+function goToLetter(){
+document.getElementById("wheelSection").classList.add("hidden");
+document.getElementById("letterSection").classList.remove("hidden");
+typeWriter();
+}
+
+/* ---------------- LETTER ---------------- */
+
+let text=`My Love,
+
+From the day you entered my life,
+everything became brighter.
+
+You are my calm after every storm,
+my rainbow after every rain.
+
+No matter what the future holds,
+I choose you.
+Every day.
+Every moment.
+
+Happy Anniversary Jaanu.
+Forever yours,
+Shreya ❤️`;
+
+let i=0;
+function typeWriter(){
+if(i<text.length){
+document.getElementById("letterText").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+</script>
+
+</body>
+</html>
