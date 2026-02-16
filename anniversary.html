@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Anniversary</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================== GLOBAL ================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:white;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+.section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+  position:relative;
+  text-align:center;
+}
+
+/* ================== RAIN ================== */
+
+.rain{
+  position:fixed;
+  width:2px;
+  height:80px;
+  background:rgba(255,255,255,0.15);
+  animation:rain 1.8s linear infinite;
+  z-index:0;
+}
+
+@keyframes rain{
+  from{transform:translateY(-100px);}
+  to{transform:translateY(100vh);}
+}
+
+/* ================== BUTTON ================== */
+
+.btn{
+  margin-top:30px;
+  padding:14px 35px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff6ec4,#7873f5);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 15px rgba(255,110,196,0.6);
+  z-index:2;
+}
+
+.btn:hover{
+  transform:scale(1.08);
+}
+
+/* ================== HEART GAME ================== */
+
+#gameArea{
+  position:relative;
+  width:100%;
+  height:60vh;
+  overflow:hidden;
+  margin-top:30px;
+}
+
+.heart{
+  position:absolute;
+  font-size:26px;
+  cursor:pointer;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  from{transform:translateY(-50px);}
+  to{transform:translateY(100vh);}
+}
+
+.note{
+  position:absolute;
+  background:rgba(255,255,255,0.95);
+  color:#ff4d6d;
+  padding:10px 15px;
+  border-radius:15px;
+  font-size:14px;
+  animation:fadeOut 2s forwards;
+}
+
+@keyframes fadeOut{
+  0%{opacity:1;}
+  100%{opacity:0;}
+}
+
+/* ================== WHEEL ================== */
+
+#wheelSection{
+  background:linear-gradient(135deg,#141e30,#243b55);
+}
+
+.wheel-wrapper{
+  position:relative;
+  width:340px;
+  height:340px;
+  margin-top:40px;
+}
+
+#wheel{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  border:8px solid white;
+  box-shadow:0 0 30px rgba(255,255,255,0.4);
+  transition:transform 5s cubic-bezier(0.33,1,0.68,1);
+}
+
+.pointer{
+  position:absolute;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-bottom:28px solid white;
+}
+
+/* ================== LOVE LETTER ================== */
+
+#letterSection{
+  background:linear-gradient(135deg,#2b1055,#7597de);
+}
+
+.letter{
+  max-width:750px;
+  font-family:'Great Vibes',cursive;
+  font-size:28px;
+  line-height:1.8;
+  background:rgba(255,255,255,0.1);
+  padding:50px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================== HEART GAME ================== -->
+<section class="section" id="gameSection">
+  <h1>Catch My Love 💕</h1>
+  <div id="gameArea"></div>
+  <button class="btn" onclick="goToWheel()">Go To Your Next Surprise 🎁</button>
+</section>
+
+<!-- ================== WHEEL ================== -->
+<section class="section" id="wheelSection">
+  <h1>Spin Your Surprise 💫</h1>
+  <div class="wheel-wrapper">
+    <div class="pointer"></div>
+    <canvas id="wheel" width="340" height="340"></canvas>
+  </div>
+  <button class="btn" onclick="spinWheel()">Spin Now 💖</button>
+  <button class="btn" onclick="goToLetter()">Read Your Love Letter 💌</button>
+</section>
+
+<!-- ================== LETTER ================== -->
+<section class="section" id="letterSection">
+  <div class="letter">
+    My love,<br><br>
+Today is not just an anniversary.  
+It is a reminder that somewhere in this big, unpredictable world, two hearts found each other and decided to stay.
+
+From the very first conversation, something about you felt like home. Not loud, not dramatic — just calm, warm, and safe. You walked into my life so gently, yet you changed everything so deeply. With you, love is not just butterflies and late-night talks. It is comfort. It is understanding without words. It is knowing that no matter how heavy the day feels, I have someone who holds my heart with care.
+You have seen my silence, my overthinking, my moods, my dreams — and you chose to stay. That means more to me than grand gestures ever could. You are my peace in chaos, my rainbow after every rain, my steady hand when life feels uncertain.
+This past year with you has taught me that love is not about perfection. It is about choosing each other again and again, even on the difficult days. And I choose you. I choose your laugh. I choose your stubbornness. I choose your kindness. I choose the way you make my world softer just by being in it.
+
+I don’t know what every tomorrow will look like. But I know this — if you are beside me, I will walk into every future without fear. Because loving you is the easiest decision my heart has ever made.
+
+Happy Anniversary, my jaanu.  
+Thank you for being my today, and for being my forever.
+
+Forever yours,  
+Shreya ❤️. 💖
+  </div>
+</section>
+
+<script>
+
+/* ================== RAIN ================== */
+
+for(let i=0;i<120;i++){
+  let drop=document.createElement("div");
+  drop.classList.add("rain");
+  drop.style.left=Math.random()*100+"vw";
+  drop.style.animationDuration=(1+Math.random()*1.5)+"s";
+  document.body.appendChild(drop);
+}
+
+/* ================== HEART GAME ================== */
+
+const gameArea=document.getElementById("gameArea");
+const messages=[
+"I Love You ❤️",
+"You Are My Forever 💍",
+"My Safe Place 🫶",
+"My Happiness 🌸",
+"My Heartbeat 💓"
+];
+
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"%";
+  heart.style.animationDuration="7s"; // slower falling
+  gameArea.appendChild(heart);
+
+  heart.onclick=()=>{
+    const note=document.createElement("div");
+    note.classList.add("note");
+    note.innerHTML=messages[Math.floor(Math.random()*messages.length)];
+    note.style.left=heart.style.left;
+    note.style.top=heart.offsetTop+"px";
+    gameArea.appendChild(note);
+    heart.remove();
+  };
+
+  setTimeout(()=>heart.remove(),7000);
+}
+
+setInterval(createHeart,1000);
+
+/* ================== SCROLL FUNCTIONS ================== */
+
+function goToWheel(){
+  document.getElementById("wheelSection").scrollIntoView({behavior:"smooth"});
+}
+
+function goToLetter(){
+  document.getElementById("letterSection").scrollIntoView({behavior:"smooth"});
+}
+
+/* ================== SPINNING WHEEL ================== */
+
+const canvas=document.getElementById("wheel");
+const ctx=canvas.getContext("2d");
+
+const options=[
+"Hug 🤗",
+"Kiss 💋",
+"Movie Night 🎬",
+"Long Call 📞",
+"Secret Gift 🎁",
+"Dinner Date 🍽️"
+];
+
+const colors=[
+"#ff6ec4",
+"#f093fb",
+"#f5576c",
+"#5ee7df",
+"#c471f5",
+"#43e97b"
+];
+
+function drawWheel(){
+  const arc=2*Math.PI/options.length;
+  for(let i=0;i<options.length;i++){
+    ctx.beginPath();
+    ctx.fillStyle=colors[i];
+    ctx.moveTo(170,170);
+    ctx.arc(170,170,170,i*arc,(i+1)*arc);
+    ctx.fill();
+
+    ctx.save();
+    ctx.translate(170,170);
+    ctx.rotate(i*arc+arc/2);
+    ctx.fillStyle="white";
+    ctx.font="bold 14px Poppins";
+    ctx.fillText(options[i],80,5);
+    ctx.restore();
+  }
+}
+
+drawWheel();
+
+function spinWheel(){
+  const spinDegree=5000+Math.random()*5000;
+  canvas.style.transform="rotate("+spinDegree+"deg)";
+}
+
+</script>
+
+</body>
+</html>
