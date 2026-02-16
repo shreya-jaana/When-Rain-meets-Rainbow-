@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When Rain Meets Rainbow</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.rainbow{
+position:absolute;
+bottom:-150px;
+width:600px;
+height:300px;
+border-radius:300px 300px 0 0;
+background:conic-gradient(red,orange,yellow,green,blue,indigo,violet);
+filter:blur(40px);
+opacity:0.5;
+animation:floatRainbow 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatRainbow{
+from{transform:translateY(0);}
+to{transform:translateY(-30px);}
+}
+
+.rain{position:absolute;width:100%;height:100%;overflow:hidden;}
+.drop{
+position:absolute;
+bottom:100%;
+width:2px;
+height:80px;
+background:rgba(255,255,255,0.4);
+animation:rainFall linear infinite;
+}
+
+@keyframes rainFall{
+to{transform:translateY(120vh);}
+}
+
+.card{
+backdrop-filter:blur(25px);
+background:rgba(255,255,255,0.1);
+padding:60px 80px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 0 40px rgba(255,255,255,0.2);
+animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9);}
+to{opacity:1;transform:scale(1);}
+}
+
+.name{
+font-size:65px;
+font-weight:800;
+color:white;
+letter-spacing:5px;
+text-shadow:0 0 20px rgba(255,255,255,0.9);
+}
+
+.subtext{
+font-family:'Great Vibes',cursive;
+font-size:30px;
+color:white;
+margin-top:15px;
+}
+
+.enter-btn{
+margin-top:30px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff7eb3;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.enter-btn:hover{
+transform:scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="rainbow"></div>
+<div class="rain"></div>
+
+<div class="card">
+<div class="name">Shreya ❤️ Sarib</div>
+<div class="subtext">Where rain meets the rainbow ✨</div>
+<button class="enter-btn" onclick="window.location.href='anniversary.html'">
+Enter Our Forever
+</button>
+</div>
+
+<script>
+const rainContainer=document.querySelector('.rain');
+for(let i=0;i<80;i++){
+const drop=document.createElement('div');
+drop.classList.add('drop');
+drop.style.left=Math.random()*100+'vw';
+drop.style.animationDuration=(0.5+Math.random())+'s';
+drop.style.animationDelay=Math.random()*5+'s';
+rainContainer.appendChild(drop);
+}
+</script>
+
+</body>
+</html>
